@@ -9,46 +9,89 @@
             font-family: Arial, sans-serif;
             text-align: center;
             padding: 20px;
+            background: linear-gradient(to right, #a1c4fd, #c2e9fb);
+            color: #333;
         }
-        input, button {
+        main, .container {
+            max-width: 600px;
+            margin: auto;
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+        h1, h2, h3 {
+            margin: 10px 0;
+        }
+        input, button, select {
             margin: 10px;
             padding: 10px;
             font-size: 16px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
+        button:hover {
+            background-color: #eee;
+            cursor: pointer;
+        }
+        #setupSection, #gameSection {
+            margin-top: 20px;
         }
         #gameSection {
             display: none;
+        }
+        #feedback {
+            font-weight: bold;
+            margin-top: 20px;
+            font-size: 24px;
+            color: #333;
+            padding: 10px;
         }
     </style>
 </head>
 <body>
     <h1>Welcome to the Guessing Game</h1>
     <h2>You will have 5 attempts to guess the correct number</h2>
-    <h3>the second player in the selection will be the one guessing</h3>
+    <h3>The second player in the selection will be the one guessing</h3>
     <div id="setupSection">
         <label for="mode">Choose Mode:</label>
         <select id="mode">
             <option value="1">Human vs Computer</option>
-            <option value="2">Computer vs Human</option>
+            <option value="2" selected>Computer vs Human</option>
             <option value="3">Computer vs Computer</option>
         </select>
         <br>
         <label for="range">Set Range (0 to max):</label>
         <input type="number" id="range" min="1" placeholder="Enter max range">
         <br>
-        <label for="goal">Set Goal (if Human vs Computer):</label>
-        <input type="number" id="goal" placeholder="Enter goal (optional)">
+        <!-- Add a container for the Goal input -->
+        <div id="goalSection" style="display: none;">
+            <label for="goal">Set Goal (if Human vs Computer):</label>
+            <input type="number" id="goal" placeholder="Enter goal">
+        </div>
         <br>
         <button id="startGame">Start Game</button>
     </div>
 
     <div id="gameSection">
         <h2>Make Your Guess!</h2>
-        <input type="number" id="guessInput" placeholder="Enter your guess">
-        <button id="submitGuess">Submit Guess</button>
+        <div style="display: flex; flex-direction: column; align-items: center; margin: 0 auto;">
+            <input type="number" id="guessInput" placeholder="Enter your guess">
+            <button id="submitGuess">Submit Guess</button>
+        </div>
         <p id="feedback"></p>
         <button id="restartGame">Restart Game</button>
     </div>
 
     <script src="guessingGame.js"></script>
+    <script>
+        document.getElementById("mode").addEventListener("change", function() {
+            if (this.value === "1") {
+                document.getElementById("goalSection").style.display = "block";
+            } else {
+                document.getElementById("goalSection").style.display = "none";
+            }
+        });
+    </script>
 </body>
 </html>
